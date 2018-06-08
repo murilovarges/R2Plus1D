@@ -32,6 +32,7 @@ def create_video_db(
     use_video_id=0,
     use_start_frame=0,
     num_epochs=1,
+    shuffle_data=0
 ):
 
     # read csv list file
@@ -66,9 +67,10 @@ def create_video_db(
     index = 0
     with env.begin(write=True) as txn:
         for epoch in range(num_epochs):
-            # shuffle the data frame
-            log.info('shuffling index for epoch {}'.format(epoch))
-            list = list.sample(frac=1)
+	    if shuffle_data:
+		    # shuffle the data frame
+		    log.info('shuffling index for epoch {}'.format(epoch))
+		    list = list.sample(frac=1)
             for _, row in list.iterrows():
                 file_name = row["org_video"]
                 label = row["label"]
@@ -132,6 +134,10 @@ def main():
     parser.add_argument("--num_epochs", type=int, default=1,
                         help="Due to lmdb does not allow online shuffle" +
                         "we can write multiple shuffled list")
+    parser.add_argument("--shuffle_data", type=int, default=0,
+                        help="0: does not shuffle dataset, " +
+                        "1: shuffle dataset")
+
     args = parser.parse_args()
     create_video_db(
         args.list_file,
@@ -139,7 +145,8 @@ def main():
         args.use_list,
         args.use_video_id,
         args.use_start_frame,
-        args.num_epochs
+        args.num_epochs,
+	args.shuffle_data
     )
 
 
