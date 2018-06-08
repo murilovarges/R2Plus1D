@@ -1,3 +1,6 @@
+'''
+Script to create npdi lists file
+'''
 import os
 import csv
 import platform
