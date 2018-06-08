@@ -1,2 +1,2 @@
 python tools/dense_prediction_aggregation.py \
---input_dir=/data/users/trandu/datasets/kinetics_features/rgb_ft_45450620
+--input_dir=/home/murilo/PycharmProjects/R2Plus1D/output/npdi/dense_features

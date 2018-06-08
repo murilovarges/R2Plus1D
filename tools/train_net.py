@@ -141,10 +141,10 @@ def RunEpoch(
     loss = workspace.FetchBlob(prefix + '/loss')
     learning_rate = workspace.FetchBlob(prefix + '/LR')
     if (test_model is not None):
-        # Run 100 iters of testing
+        # Run 160 iters of testing
         ntests = 0
         test_accuracy = 0
-        for _ in range(0, 100):
+        for _ in range(0, 160):
             workspace.RunNet(test_model.net.Proto().name)
             for g in test_model._devices:
                 prefix = "gpu_{}".format(g)
@@ -373,7 +373,7 @@ def Train(args):
         args.num_labels,
         args.base_learning_rate,
     )
-    explog = experiment_util.ModelTrainerLog(expname, args)
+    explog = experiment_util.ModelTrainerLog("%s/%s"%(args.file_store_path,expname), args)
 
     # Run the training one epoch a time
     while epoch < args.num_epochs:

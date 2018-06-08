@@ -22,6 +22,8 @@ import numpy as np
 import os
 import argparse
 import cPickle as pickle
+import sys
+sys.path.insert(0,"/home/murilo/PycharmProjects/R2Plus1D/lib")
 
 import utils.metric as metric
 
