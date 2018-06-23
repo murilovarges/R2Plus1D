@@ -1,11 +1,11 @@
 python tools/train_net.py \
---train_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold0134_video \
---test_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold2_video \
+--train_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold1234 \
+--test_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold0 \
 --model_name=r2plus1d --model_depth=34 \
 --clip_length_rgb=32 --batch_size=4 \
---pretrained_model=/home/murilo/PycharmProjects/R2Plus1D/models/base/r2.5d_d34_l32.pkl \
+--pretrained_model=/home/murilo/PycharmProjects/R2Plus1D/models/base/r2.5d_d34_l32_ft_sports1m_rgb.pkl \
 --db_type='pickle' --is_checkpoint=0 \
 --gpus=0 --base_learning_rate=0.0001 \
---epoch_size=1280 --num_epochs=10 --step_epoch=2 \
+--epoch_size=52000 --num_epochs=8 --step_epoch=2 \
 --weight_decay=0.005 --num_labels=2 \
---file_store_path=output/npdi/split3
+--file_store_path=output/npdi/split1s_rgb_sports1m

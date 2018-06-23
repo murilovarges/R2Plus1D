@@ -26,18 +26,16 @@ log.setLevel(logging.INFO)
 
 
 def create_video_db(
-    list_file,
-    output_file,
-    use_list=0,
-    use_video_id=0,
-    use_start_frame=0,
-    num_epochs=1,
-    shuffle_data=0
+        list_file,
+        output_file,
+        use_list=0,
+        use_video_id=0,
+        use_start_frame=0,
+        num_epochs=1,
+        shuffle_data=1
 ):
-
     # read csv list file
     list = pandas.read_csv(list_file)
-
 
     # checking necessary fields of the provided csv file
     assert 'org_video' in list, \
@@ -49,17 +47,17 @@ def create_video_db(
             "The input list does not have video_id column"
     if use_start_frame:
         assert use_list == 1, "using starting frame is recommended only " + \
-            "with using local file setting for feature extraction"
+                              "with using local file setting for feature extraction"
         assert 'start_frm' in list, \
             "The input list does not have start_frame column"
 
     if num_epochs > 1:
         assert use_list == 1, "using number of epochs > 1 " + \
-            "is recommended only with using local file setting" + \
-            "otherwise, there will be redundancy in data written into lmdb"
+                              "is recommended only with using local file setting" + \
+                              "otherwise, there will be redundancy in data written into lmdb"
 
     # Write to lmdb database...
-    LMDB_MAP_SIZE = 1 << 40   # MODIFY
+    LMDB_MAP_SIZE = 1 << 40  # MODIFY
     env = lmdb.open(output_file, map_size=LMDB_MAP_SIZE)
 
     # index and size counters
@@ -67,10 +65,10 @@ def create_video_db(
     index = 0
     with env.begin(write=True) as txn:
         for epoch in range(num_epochs):
-	    if shuffle_data:
-		    # shuffle the data frame
-		    log.info('shuffling index for epoch {}'.format(epoch))
-		    list = list.sample(frac=1)
+            if shuffle_data:
+                # shuffle the data frame
+                log.info('shuffling index for epoch {} file {}'.format(epoch, list_file))
+                list = list.sample(frac=1)
             for _, row in list.iterrows():
                 file_name = row["org_video"]
                 label = row["label"]
@@ -124,19 +122,19 @@ def main():
                         help="Path to output lmdb data")
     parser.add_argument("--use_list", type=int, default=0,
                         help="0: write video encoded data to lmdb, " +
-                        "1: write only full path to local video files")
+                             "1: write only full path to local video files")
     parser.add_argument("--use_video_id", type=int, default=0,
                         help="0: does not use video_id, " +
-                        "1: write also video_id to lmdb")
+                             "1: write also video_id to lmdb")
     parser.add_argument("--use_start_frame", type=int, default=0,
                         help="0: does not use start_frame, " +
-                        "1: write also start_frame to lmdb")
+                             "1: write also start_frame to lmdb")
     parser.add_argument("--num_epochs", type=int, default=1,
                         help="Due to lmdb does not allow online shuffle" +
-                        "we can write multiple shuffled list")
+                             "we can write multiple shuffled list")
     parser.add_argument("--shuffle_data", type=int, default=0,
                         help="0: does not shuffle dataset, " +
-                        "1: shuffle dataset")
+                             "1: shuffle dataset")
 
     args = parser.parse_args()
     create_video_db(
@@ -146,7 +144,7 @@ def main():
         args.use_video_id,
         args.use_start_frame,
         args.num_epochs,
-	args.shuffle_data
+        args.shuffle_data
     )
 
 

@@ -17,6 +17,9 @@ from __future__ import division
 from __future__ import unicode_literals
 from __future__ import print_function
 
+import sys
+sys.path.insert(0, "/home/murilo/PycharmProjects/R2Plus1D/lib")
+
 from caffe2.python import workspace, cnn, data_parallel_model
 import models.model_builder as model_builder
 import utils.model_helper as model_helper
@@ -28,6 +31,9 @@ import argparse
 import os.path
 import pickle
 import sys
+
+from matplotlib import cm, pyplot
+from array import array
 
 logging.basicConfig()
 log = logging.getLogger("feature_extractor")
@@ -118,6 +124,9 @@ def ExtractFeatures(args):
         devices=gpus,
     )
 
+    print(model.net.Proto())
+    a = model.net.Proto()
+
     workspace.RunNetOnce(model.param_init_net)
     workspace.CreateNet(model.net)
 
@@ -141,6 +150,25 @@ def ExtractFeatures(args):
             workspace.RunNet(model.net.Proto().name)
             for gpuidx in model._devices:
                 for output_name in outputs:
+
+                    # Visualize data
+                    '''
+                    videoData = workspace.FetchBlob('gpu_0' + '/data')
+                    cols = 8
+                    rows = 4
+                    ctd_img = 1
+                    imgs = array("i", (0, 3, 7, 11, 15, 19, 23, 27, 31))
+                    fig = pyplot.figure(figsize=(10, 10))
+                    for ii in range(1, rows + 1):
+                        for jj in range(1, cols + 1):
+                            img = videoData[ii - 1][0][imgs[jj - 1]]
+                            fig.add_subplot(rows, cols, ctd_img)
+                            pyplot.imshow(img)
+                            ctd_img = ctd_img + 1
+                            pyplot.show()
+                    '''
+
+
                     blob_name = 'gpu_{}/'.format(gpuidx) + output_name
                     activations = workspace.FetchBlob(blob_name)
                     if output_name not in all_activations:

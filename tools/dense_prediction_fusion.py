@@ -22,6 +22,8 @@ import numpy as np
 import os
 import argparse
 import cPickle as pickle
+import sys
+sys.path.insert(0,"/home/murilo/PycharmProjects/R2Plus1D/lib")
 
 import utils.metric as metric
 
@@ -70,6 +72,7 @@ def evaluate_two_feature_bag(pkl_file1, pkl_file2, blob_name, weights):
             continue
         assert label1[i, 0] == label2[i, 0]
         predict = weights[0] * feat1[i, :] + weights[1] * feat2[i, :]
+        #predict = feat1[i, :] + feat2[i, :]
         c1, c5 = metric.accuracy_metric(predict, label1[i, 0], 5)
         top1 += c1
         top5 += c5

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # create npdi dataset for 5 splits
 i=1
 while [ $i -lt 6 ]; \
@@ -23,13 +24,13 @@ do \
 	echo $fold_train 
 
 	python data/create_video_db.py \
-	--list_file=/home/murilo/PycharmProjects/R2Plus1D/data/list/npdi/${fold_test}_video.txt \
-	--output_file=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/${fold_test}_video \
-	--shuffle_data=0
+	--list_file=/home/murilo/PycharmProjects/R2Plus1D/data/list/npdi/${fold_test}.txt \
+	--output_file=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/${fold_test} \
+	--shuffle_data=1
 
 	python data/create_video_db.py \
-	--list_file=/home/murilo/PycharmProjects/R2Plus1D/data/list/npdi/${fold_train}_video.txt \
-	--output_file=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/${fold_train}_video \
-	--shuffle_data=0
+	--list_file=/home/murilo/PycharmProjects/R2Plus1D/data/list/npdi/${fold_train}.txt \
+	--output_file=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/${fold_train} \
+	--shuffle_data=1
 	i=$((i+1))
 done
