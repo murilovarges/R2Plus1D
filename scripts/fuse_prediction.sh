@@ -1,4 +1,4 @@
 python tools/dense_prediction_fusion.py \
---input_dir1=/data/users/trandu/datasets/kinetics_features/rgb_ft_45450620 \
---input_dir2=/data/users/trandu/datasets/kinetics_features/of_ft_50030948 \
+--input_dir1=/home/murilo/PycharmProjects/R2Plus1D/output/npdi/dense_features_rgb_sports1m \
+--input_dir2=/home/murilo/PycharmProjects/R2Plus1D/output/npdi/dense_features_of_sports1m \
 --alpha=0.6

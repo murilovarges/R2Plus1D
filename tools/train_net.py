@@ -17,6 +17,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import sys
+sys.path.insert(0, "/home/murilo/PycharmProjects/R2Plus1D/lib")
+
 import argparse
 import logging
 import numpy as np
@@ -28,6 +31,9 @@ import caffe2.python.predictor.predictor_exporter as pred_exp
 import models.model_builder as model_builder
 import utils.model_helper as model_helper
 import utils.model_loader as model_loader
+
+
+
 
 # Logger
 log = logging.getLogger("train_net")

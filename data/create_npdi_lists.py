@@ -66,7 +66,7 @@ def verifyFiles(path, list, create_csv=False):
     if create_csv:
 
         videoCSV = os.path.basename(list)
-        keys = files[0].keys()
+        #keys = files[0].keys()
         with open(videoCSV, 'w', newline='') as csvfile:  # Just use 'w' mode in 3.x
             fieldnames = ['org_video', 'label']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -84,7 +84,7 @@ def main():
     OsName = platform.system()
     print('Operating System: ', OsName)
 
-    typeVal = "Video"  # Video or Segments
+    typeVal = "Segments"  # Video or Segments
     if OsName == 'Windows':
         if typeVal == "Video":
             base_path = '\\Projects\\DataSets\\NPDI\\db\\Database\\'
@@ -100,7 +100,7 @@ def main():
             test_path = '/home/murilo/dataset/NPDI/test/fold%i_video.txt'
             train_path = '/home/murilo/dataset/NPDI/training/fold%s_video.txt'
         else:
-            base_path = '/home/murilo/dataset/NPDI/Database/Segments/'
+            base_path = '/home/murilo/dataset/NPDI/Segments/'
             test_path = '/home/murilo/dataset/NPDI/test/fold%i.txt'
             train_path = '/home/murilo/dataset/NPDI/training/fold%s.txt'
 
