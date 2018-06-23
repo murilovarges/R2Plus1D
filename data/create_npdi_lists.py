@@ -1,5 +1,5 @@
 '''
-Script to create npdi lists file with videos
+Script to create npdi lists file
 '''
 import os
 import csv
