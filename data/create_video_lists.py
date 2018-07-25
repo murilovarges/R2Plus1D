@@ -31,7 +31,8 @@ def create_video_list(
         output_dir,
         output_filename,
         num_frames_per_clip=32,
-        frame_stride=8,
+        frame_stride=16,
+        use_different_video_id=0
 ):
     # generate input file for feature extraction/dense prediction
     input_file = os.path.join(output_dir, output_filename)
@@ -63,10 +64,14 @@ def create_video_list(
                print "[Debug] adding frame_index={}".format(frame_index)
                start_frames.append(frame_index)
 
+
         for start_frame in start_frames:
             f_input.write("{},{},{},{}\n".format(video_file, label, start_frame, video_id))
-            
-        video_id = video_id + 1
+            if use_different_video_id:
+                video_id = video_id + 1
+
+        if not use_different_video_id:
+            video_id = video_id + 1
 
 
 
@@ -85,8 +90,11 @@ def main():
                         help="Filename to output dense list file")
     parser.add_argument("--num_frames_per_clip", type=int, default=32,
                         help="number of frames per clip")
-    parser.add_argument("--frame_stride", type=int, default=8,
+    parser.add_argument("--frame_stride", type=int, default=16,
                         help="frame stride for feature extraction/dense prediction")
+    parser.add_argument("--use_different_video_id", type=int, default=0,
+                        help="Use different_video_id for each video clip")
+
 
     args = parser.parse_args()
 
@@ -95,7 +103,8 @@ def main():
         args.output_dir,
         args.output_filename,
         args.num_frames_per_clip,
-        args.frame_stride
+        args.frame_stride,
+        args.use_different_video_id,
     )
 
 
