@@ -147,10 +147,10 @@ def RunEpoch(
     loss = workspace.FetchBlob(prefix + '/loss')
     learning_rate = workspace.FetchBlob(prefix + '/LR')
     if (test_model is not None):
-        # Run 160 iters of testing
+        # Run 192 iters of testing
         ntests = 0
         test_accuracy = 0
-        for _ in range(0, 160):
+        for _ in range(0, 192):
             workspace.RunNet(test_model.net.Proto().name)
             for g in test_model._devices:
                 prefix = "gpu_{}".format(g)

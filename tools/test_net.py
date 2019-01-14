@@ -17,6 +17,10 @@ from __future__ import division
 from __future__ import unicode_literals
 from __future__ import print_function
 
+import sys
+sys.path.insert(0, "/home/murilo/PycharmProjects/R2Plus1D/lib")
+
+
 import logging
 import numpy as np
 import argparse

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 python tools/train_net.py \
 --train_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold1234 \
 --test_data=/home/murilo/PycharmProjects/R2Plus1D/data/lmdb/npdi/fold0 \
